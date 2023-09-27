@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head('Edit Book')"></head>
+<body>
+<div class="container">
+    <h1 th:text="${pizza.name}"></h1>
+    <hr>
+    <div class="row">
+        <dl>
+            <dt>Name</dt>
+            <dd th:text="${pizza.name}"></dd>
+            <dt>Description</dt>
+            <dd th:text="${pizza.description}"></dd>
+            <dt>Price</dt>
+            <dd th:text="${pizza.price}"></dd>
+        </dl>
+    </div>
+    <!-- BUTTON "ADD OFFER" -->
+    <div class="row">
+        <h2>Offers</h2>
+        <div class="my-3">
+            <a th:href="@{/offers/create(pizzaId=${pizza.id})}">Add Offer</a>
+        </div>
+    </div>
+    <!-- TABLE OFFERS -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Start Date</th>
+            <th>Expire Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="specialOffer : ${pizza.specialOffers}">
+            <td th:text="${specialOffer.title}"></td>
+            <td th:text="${specialOffer.startDate}"></td>
+            <td th:text="${specialOffer.expireDate}"></td>
+            <td class="d-flex align-items-center justify-content-end">
+                <a th:href="@{/offers/edit/{specialOfferId}(specialOfferId=${specialOffer.id})}"
+                   class="btn btn-primary me-1">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </a>
+                <form th:action="@{/offers/delete/{specialOfferId}(specialOfferId = ${specialOffer.id})}"
+                      method="POST">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </form>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
