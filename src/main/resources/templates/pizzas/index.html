@@ -16,7 +16,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="pizza : ${pizza}">
+        <tr th:classAppend="${pizza.haveOffers ? '' : 'table-danger'}"
+                th:each="pizza : ${pizza}">
             <td th:text="${pizza.name}"></td>
             <td th:text="${pizza.description}"></td>
             <td th:text="${pizza.price}"></td>
@@ -35,6 +36,7 @@
                 </form>
             </td>
         </tr>
+        
         </tbody>
     </table>
 </div>

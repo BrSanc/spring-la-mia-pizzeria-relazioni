@@ -30,7 +30,8 @@ public class SpecialOfferController {
         if (pizzaResult.isPresent()){
             Pizza pizza = pizzaResult.get();
             SpecialOffer specialOffer = new SpecialOffer();
-            model.addAttribute("specialoffer", specialOffer);
+            specialOffer.setPizza(pizza);
+            model.addAttribute("specialofferObj", specialOffer);
             return "offers/form";
         }else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
@@ -38,8 +39,9 @@ public class SpecialOfferController {
         }
     }
 
+
     @PostMapping("/create")
-    public String doCreate(@ModelAttribute("specialoffer") SpecialOffer specialOfferForm,
+    public String doCreate(@ModelAttribute("specialofferObj") SpecialOffer specialOfferForm,
         Model model){
         specialOfferRepository.save(specialOfferForm);
         return "redirect:/pizza/" + specialOfferForm.getPizza().getId();
@@ -51,7 +53,7 @@ public class SpecialOfferController {
     public String edit(@PathVariable("specialofferId") Integer id, Model model){
        Optional<SpecialOffer> specialOfferResult = specialOfferRepository.findById(id);
        if (specialOfferResult.isPresent()){
-           model.addAttribute("specialoffer",specialOfferResult);
+           model.addAttribute("specialofferObj",specialOfferResult.get());
            return "/offers/edit";
        }else {
            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -60,7 +62,7 @@ public class SpecialOfferController {
 
     @PostMapping("/edit/{specialofferId}")
     public String doEdit(@PathVariable("specialofferId") Integer specialofferId,
-        @ModelAttribute("specialoffer") SpecialOffer specialOfferForm, Model model){
+        @ModelAttribute("specialofferObj") SpecialOffer specialOfferForm, Model model){
         specialOfferForm.setId(specialofferId);
         specialOfferRepository.save(specialOfferForm);
         return "redirect:/pizza/" + specialOfferForm.getPizza().getId();

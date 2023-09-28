@@ -20,7 +20,6 @@ public class Pizza {
     private BigDecimal price;
 
     @OneToMany (mappedBy = "pizza", cascade = {CascadeType.REMOVE})
-    @NotNull
     private List<SpecialOffer> specialOffers;
 
     //getter e setter--------------------------
@@ -63,5 +62,13 @@ public class Pizza {
 
     public void setSpecialOffers(List<SpecialOffer> specialOffers) {
         this.specialOffers = specialOffers;
+    }
+
+    //Metodi----------------------
+    public boolean haveOffers(){
+        boolean haveOffer = false;
+        if (specialOffers.size() > 0){
+            haveOffer = true;
+        }return haveOffer;
     }
 }

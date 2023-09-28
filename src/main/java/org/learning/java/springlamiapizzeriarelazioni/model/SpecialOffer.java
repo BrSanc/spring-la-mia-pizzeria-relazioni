@@ -16,7 +16,6 @@ public class SpecialOffer {
     private String title;
 
     @ManyToOne
-    @NotNull
     private Pizza pizza;
 
     //Getter e Setter-----------------

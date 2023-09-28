@@ -4,12 +4,14 @@
 <body>
 <div class="container">
     <h1>Edit Offer</h1>
+    <h2 th:text="${specialofferObj.pizza.name}"></h2>
+
     <hr>
     <form
-            action="@{/offer/edit}"
+            th:action="@{/offers/edit/{id}(id=${specialofferObj.id})}"
             id="specialOffer-form"
             method="POST"
-            th:object="${specialoffer}"
+            th:object="${specialofferObj}"
     >
         <!-- hidden input -->
         <input type="hidden" th:field="*{pizza}">
